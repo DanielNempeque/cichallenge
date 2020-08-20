@@ -17,7 +17,7 @@ pipeline {
         stage('Zip file'){
             steps{
                 echo 'Zipping files'
-                sh 'tar czf content-$BUILD_NUMBER.tar.gz server.js package.json test.js Dockerfile Jenikinsfile'
+                sh 'tar czf content-$BUILD_NUMBER.tar.gz server.js package.json test.js Dockerfile Jenkinsfile'
                 sh 'scp content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20/home/'
             }
         }
