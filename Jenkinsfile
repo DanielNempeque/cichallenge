@@ -4,6 +4,7 @@ pipeline {
         stage('Instal deps'){
             steps{
                 echo 'Installing dependencies'
+                sh 'rm -rf *.tar.gz'
                 sh 'npm install'
             }
         }
@@ -16,7 +17,7 @@ pipeline {
         stage('Zip file'){
             steps{
                 echo 'Zipping files'
-                sh 'zip content.zip -r .'
+                sh 'tar czp content-$BUILD_NUMBER.tar.gz -r .'
                 sh 'scp content.zip nodejs@10.0.1.20/home/'
             }
         }
