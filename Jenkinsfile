@@ -19,7 +19,7 @@ pipeline {
                 echo 'Zipping files'
                 sh 'tar czf content-$BUILD_NUMBER.tar.gz server.js package.json test.js Dockerfile Jenkinsfile'
                 sshagent(['ssh-key-1']) {
-                    sh 'scp -o StrictHostKeyChecking=no content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20:/home/'
+                    sh 'scp -vvv -o StrictHostKeyChecking=no content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20:/home/'
                 }  
             }
         }
