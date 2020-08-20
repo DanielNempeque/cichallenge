@@ -23,8 +23,8 @@ pipeline {
         }
         stage('Build and run'){
             steps{
-                sh 'ssh -oStrictHostKeyChecking=no nodejs@10.0.1.20 docker build -t nodejschallenge:latest .'
-                sh 'ssh -oStrictHostKeyChecking=no nodejs@10.0.1.20 docker run -p 8000:8000 -d nodejschallenge:latest --name challenge'
+                sh 'ssh nodejs@10.0.1.20 docker build -t nodejschallenge:latest .'
+                sh 'ssh nodejs@10.0.1.20 docker run -p 8000:8000 -d nodejschallenge:latest --name challenge'
             }
         }
     }
