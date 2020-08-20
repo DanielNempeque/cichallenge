@@ -18,13 +18,13 @@ pipeline {
             steps{
                 echo 'Zipping files'
                 sh 'tar czf content-$BUILD_NUMBER.tar.gz server.js package.json test.js Dockerfile Jenkinsfile'
-                sh 'scp content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20/home/'
+                sh 'scp content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20'
             }
         }
         stage('Build and run'){
             steps{
-                sh 'ssh nodejs@10.0.1.20 docker build -t nodejschallenge:latest - < content-$BUILD_NAME.tar.gz'
-                sh 'ssh nodejs@10.0.1.20 docker run -p 8000:8000 nodejschallenge:latest'
+                sh 'ssh nodejs@10.0.1.20 docker build -t nodejschallenge:latest .'
+                sh 'ssh nodejs@10.0.1.20 docker run -p 8000:8000 -d nodejschallenge:latest --name challenge'
             }
         }
     }
