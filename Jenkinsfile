@@ -1,6 +1,10 @@
 pipeline {
-    agent any
-    tools {nodejs "NodeJs"}
+    agent {
+        docker{
+            image 'node:14.8.0-alpine'
+            args '-p 3000:3000'
+        }
+    }
     stages {
         stage('Instal deps'){
             steps{
