@@ -17,7 +17,7 @@ pipeline {
         stage('Zip file'){
             steps{
                 echo 'Zipping files'
-                sh 'tar -czp content-$BUILD_NUMBER.tar.gz /'
+                sh 'tar czf content-$BUILD_NUMBER.tar.gz .'
                 sh 'scp content.zip nodejs@10.0.1.20/home/'
             }
         }
