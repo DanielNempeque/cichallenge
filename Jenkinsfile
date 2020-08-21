@@ -18,15 +18,12 @@ pipeline {
             steps{
                 echo 'Zipping files'
                 sh 'tar czf content-$BUILD_NUMBER.tar.gz server.js package.json test.js Dockerfile Jenkinsfile'
-                sh 'ls -a'
-                sh 'pwd'
                 sshagent(credentials: ['ssh-key-1']) {
                     sh 'scp -o StrictHostKeyChecking=no content-$BUILD_NUMBER.tar.gz vagrant@10.0.1.20:/home/vagrant'
                 }  
             }
         }
         stage('Build and run'){
-
             steps{
                 echo 'Building docker image'
                 sshagent(credentials: ['ssh-key-1']) {
