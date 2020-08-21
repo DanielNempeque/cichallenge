@@ -21,7 +21,7 @@ pipeline {
                 sh 'ls -a'
                 sh 'pwd'
                 sshagent(['ssh-key-1']) {
-                    sh 'scp -i key.pem content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20:/home/'
+                    sh 'scp -i key.pem content-$BUILD_NUMBER.tar.gz vagrant@10.0.1.20:/home/'
                 }  
             }
         }
@@ -29,8 +29,8 @@ pipeline {
 
             steps{
                 sshagent(['ssh-key-1']) {
-                    sh 'ssh -o StrictHostKeyChecking=no StrictHostKeyChecking=no nodejs@10.0.1.20 docker build -t nodejschallenge:latest .'
-                    sh 'ssh -o StrictHostKeyChecking=no StrictHostKeyChecking=no nodejs@10.0.1.20 docker run -p 8000:8000 -d nodejschallenge:latest --name challenge'
+                    sh 'ssh -o StrictHostKeyChecking=no StrictHostKeyChecking=no vagrant@10.0.1.20 docker build -t nodejschallenge:latest .'
+                    sh 'ssh -o StrictHostKeyChecking=no StrictHostKeyChecking=no vagrant@10.0.1.20 docker run -p 8000:8000 -d nodejschallenge:latest --name challenge'
                 }   
             }
         }
