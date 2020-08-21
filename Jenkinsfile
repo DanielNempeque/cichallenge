@@ -21,7 +21,7 @@ pipeline {
                 sh 'ls -a'
                 sh 'pwd'
                 sshagent(credentials: ['ssh-key-1']) {
-                    sh 'scp -o StrictHostKeyChecking=no -l content-$BUILD_NUMBER.tar.gz vagrant@10.0.1.20:/home/vagrant'
+                    sh 'scp -o StrictHostKeyChecking=no content-$BUILD_NUMBER.tar.gz vagrant@10.0.1.20:/home/vagrant'
                 }  
             }
         }
@@ -30,9 +30,9 @@ pipeline {
             steps{
                 echo 'Building docker image'
                 sshagent(credentials: ['ssh-key-1']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l vagrant@10.0.1.20 sudo docker build -t nodejschallenge:latest - < content-$BUILD_NUMBER.tar.gz'
-                    sh 'ssh -o StrictHostKeyChecking=no -l vagrant@10.0.1.20 sudo docker container rm -f challenge'
-                    sh 'ssh -o StrictHostKeyChecking=no -l vagrant@10.0.1.20 sudo docker run -p 8000:8000 -d --name challenge nodejschallenge:latest'
+                    sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker build -t nodejschallenge:latest - < content-$BUILD_NUMBER.tar.gz'
+                    sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker container rm -f challenge'
+                    sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker run -p 8000:8000 -d --name challenge nodejschallenge:latest'
                 }   
             }
         }
