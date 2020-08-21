@@ -30,7 +30,7 @@ pipeline {
             steps{
                 sshagent(['ssh-key-1']) {
                     sh 'ssh -i key.pem vagrant@10.0.1.20 sudo docker build -t nodejschallenge:latest - < content-$BUILD_NUMBER.tar.gz'
-                    sh 'ssh -i key.pem vagrant@10.0.1.20 sudo docker run -p 8000:8000 -d nodejschallenge:latest --name challenge'
+                    sh 'ssh -i key.pem vagrant@10.0.1.20 sudo docker run -p 8000:8000 -d --name challenge nodejschallenge:latest'
                 }   
             }
         }
