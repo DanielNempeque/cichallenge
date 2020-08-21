@@ -18,7 +18,7 @@ pipeline {
             steps{
                 echo 'Zipping files'
                 sh 'tar czf content-$BUILD_NUMBER.tar.gz server.js package.json test.js Dockerfile Jenkinsfile'
-                sh 'ls'
+                sh 'll'
                 sh 'pwd'
                 sshagent(['ssh-key-1']) {
                     sh 'scp -i key.pem content-$BUILD_NUMBER.tar.gz nodejs@10.0.1.20:/home/'
