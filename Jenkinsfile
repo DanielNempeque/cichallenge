@@ -28,7 +28,7 @@ pipeline {
                 echo 'Building docker image'
                 sshagent(credentials: ['ssh-key-1']) {
                     sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker build -t nodejschallenge:latest - < content-$BUILD_NUMBER.tar.gz'
-                    sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker stop challenge || true && docker rm challenge || true'
+                    sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker rm challenge -f || true'
                     sh 'ssh -o StrictHostKeyChecking=no vagrant@10.0.1.20 sudo docker run -p 8000:8000 -d --name challenge nodejschallenge:latest'
                 }   
             }
